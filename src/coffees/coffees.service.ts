@@ -12,9 +12,12 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private flavorRepository: Repository<Flavor>,
   ) {}
-  getAll() {
+  getAll(paginationQuery) {
+    const { limit, offset } = paginationQuery;
     return this.coffeeRepository.find({
       relations: ['flavors'],
+      skip: offset,
+      take: limit,
     });
   }
 
